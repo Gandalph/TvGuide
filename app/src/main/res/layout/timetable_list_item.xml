@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="horizontal"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/time_timetable"
+        android:text="08:00"
+        android:layout_weight="0"
+        android:padding="@dimen/abc_action_bar_icon_vertical_padding_material"
+        android:textSize="16sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/tvshow_timetable"
+        android:text="Fudbal liga sampiona - pregled lige sampiona"
+        android:layout_weight="2"
+        android:padding="@dimen/abc_action_bar_icon_vertical_padding_material"
+        android:textSize="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>

@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">TvProgramV2</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_timetable">TimetableActivity</string>
+    <string name="empty_timetable">Download problem.\n\nTry again later… :(</string>
+    <string name="search_tv_program_hint">Trazi program</string>
+    <string name="title_activity_launcher">Tv Program</string>
+    <string name="title_activity_test">Test</string>
+</resources>
