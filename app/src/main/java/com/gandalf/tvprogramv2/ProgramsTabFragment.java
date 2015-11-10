@@ -1,10 +1,12 @@
 package com.gandalf.tvprogramv2;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -22,6 +24,15 @@ public class ProgramsTabFragment extends Fragment {
         ListView mProgramsListView = (ListView) v.findViewById(R.id.programs_listView);
         ArrayList<TvProgram> mPrograms = new ArrayList<>(TvGuideLab.instance().getTvPrograms());
         mProgramsListView.setAdapter(new ProgramsAdapter(mPrograms));
+        mProgramsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent i = new Intent(getActivity(), TimetableActivity.class);
+                i.putExtra(TimetableFragment.EXTRA_TV_PROGRAM_NAME, TvGuideLab.instance().getTvPrograms().get(position).getName());
+                i.putExtra(TimetableFragment.EXTRA_TV_PROGRAM_URL, TvGuideLab.instance().getTvPrograms().get(position).getUrl());
+                startActivity(i);
+            }
+        });
 
         return v;
     }
