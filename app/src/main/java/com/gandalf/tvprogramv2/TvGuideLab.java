@@ -5,9 +5,20 @@ import java.util.Arrays;
 
 public class TvGuideLab {
     private ArrayList<TvProgram> mTvPrograms;
+    private ArrayList<TvProgram> mFavorites;
     private static TvGuideLab sTvProgramLab;
+    String mFilename = "favorites.json";
 
     private TvGuideLab() {
+        loadTvPrograms();
+        loadFavoritesPrograms();
+    }
+
+    private void loadFavoritesPrograms() {
+        
+    }
+
+    private void loadTvPrograms() {
         String prefix = "http://tv.aladin.info/tv-program-";
         mTvPrograms = new ArrayList<>(Arrays.asList(
                 new TvProgram("Tv24Kitchen", prefix+"24kitchen"),
