@@ -1,13 +1,16 @@
 package com.gandalf.tvprogramv2;
 
+import org.json.JSONException;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class TvGuideLab {
+    private static final String TAG = "TvGuideLab";
     private ArrayList<TvProgram> mTvPrograms;
     private ArrayList<TvProgram> mFavorites;
     private static TvGuideLab sTvProgramLab;
-    String mFilename = "favorites.json";
 
     private TvGuideLab() {
         loadTvPrograms();
@@ -15,7 +18,11 @@ public class TvGuideLab {
     }
 
     private void loadFavoritesPrograms() {
-        
+        try {
+            mFavorites = JSONBuilder.loadJSON();
+        } catch (IOException | JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     private void loadTvPrograms() {
@@ -46,6 +53,10 @@ public class TvGuideLab {
 
     public ArrayList<TvProgram> getTvPrograms() {
         return mTvPrograms;
+    }
+
+    public ArrayList<TvProgram> getFavorites() {
+        return mFavorites;
     }
 
     public static TvGuideLab instance() {
