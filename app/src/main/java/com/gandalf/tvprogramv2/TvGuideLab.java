@@ -1,13 +1,31 @@
 package com.gandalf.tvprogramv2;
 
+import org.json.JSONException;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class TvGuideLab {
+    private static final String TAG = "TvGuideLab";
     private ArrayList<TvProgram> mTvPrograms;
+    private ArrayList<TvProgram> mFavorites;
     private static TvGuideLab sTvProgramLab;
 
     private TvGuideLab() {
+        loadTvPrograms();
+        loadFavoritesPrograms();
+    }
+
+    private void loadFavoritesPrograms() {
+        try {
+            mFavorites = JSONBuilder.loadJSON();
+        } catch (IOException | JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void loadTvPrograms() {
         String prefix = "http://tv.aladin.info/tv-program-";
         mTvPrograms = new ArrayList<>(Arrays.asList(
                 new TvProgram("Tv24Kitchen", prefix+"24kitchen"),
@@ -35,6 +53,10 @@ public class TvGuideLab {
 
     public ArrayList<TvProgram> getTvPrograms() {
         return mTvPrograms;
+    }
+
+    public ArrayList<TvProgram> getFavorites() {
+        return mFavorites;
     }
 
     public static TvGuideLab instance() {

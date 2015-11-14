@@ -5,10 +5,9 @@
              tools:context="com.gandalf.tvprogramv2.FavoritesFragment"
     android:gravity="center">
 
-    <TextView
-        android:textSize="20sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TAB 2"/>
+    <ListView
+        android:id="@+id/favorites_listView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
 </LinearLayout>
