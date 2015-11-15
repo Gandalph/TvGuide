@@ -12,7 +12,11 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import org.json.JSONException;
+
+import java.io.IOException;
 import java.util.ArrayList;
 
 
@@ -33,9 +37,23 @@ public class FavoritesFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 Intent i = new Intent(getActivity(), TimetableActivity.class);
-                i.putExtra(TimetableFragment.EXTRA_TV_PROGRAM_NAME, TvGuideLab.instance().getFavorites().get(position).getName());
-                i.putExtra(TimetableFragment.EXTRA_TV_PROGRAM_URL, TvGuideLab.instance().getFavorites().get(position).getUrl());
+                i.putExtra(TimetableFragment.EXTRA_TV_PROGRAM_NAME, TvGuideLab.instance().getFavoritesItem(position).getName());
+                i.putExtra(TimetableFragment.EXTRA_TV_PROGRAM_URL, TvGuideLab.instance().getFavoritesItem(position).getUrl());
                 startActivity(i);
+            }
+        });
+        favoritesListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                TvGuideLab.instance().removeFavoritesItem(position);
+                try {
+                    JSONBuilder.saveFavorites();
+                } catch (IOException | JSONException e) {
+                    e.printStackTrace();
+                }
+                ((FavoritesAdapter) parent.getAdapter()).notifyDataSetChanged();
+                Toast.makeText(getActivity(), "Program removed from favorites", Toast.LENGTH_SHORT).show();
+                return true;
             }
         });
 
@@ -47,7 +65,7 @@ public class FavoritesFragment extends Fragment {
 
         public FavoritesAdapter(ArrayList<TvProgram> objects) {
             super(getActivity(), 0, objects);
-            mFavorites = new ArrayList<>(objects);
+            mFavorites = objects;
         }
 
         @Override

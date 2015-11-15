@@ -3,6 +3,7 @@ package com.gandalf.tvprogramv2;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +12,11 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import org.json.JSONException;
+
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class ProgramsTabFragment extends Fragment {
@@ -31,6 +36,21 @@ public class ProgramsTabFragment extends Fragment {
                 i.putExtra(TimetableFragment.EXTRA_TV_PROGRAM_NAME, TvGuideLab.instance().getTvPrograms().get(position).getName());
                 i.putExtra(TimetableFragment.EXTRA_TV_PROGRAM_URL, TvGuideLab.instance().getTvPrograms().get(position).getUrl());
                 startActivity(i);
+            }
+        });
+        mProgramsListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                TvProgram tvProgram = TvGuideLab.instance().getTvPrograms().get(position);
+                TvGuideLab.instance().addFavoritesItem(tvProgram);
+                try {
+                    JSONBuilder.saveFavorites();
+                } catch (IOException | JSONException e) {
+                    e.printStackTrace();
+                }
+                Toast.makeText(getActivity(), "Program added to favorites", Toast.LENGTH_SHORT).show();
+                ((ProgramsAdapter) parent.getAdapter()).notifyDataSetChanged();
+                return true;
             }
         });
 

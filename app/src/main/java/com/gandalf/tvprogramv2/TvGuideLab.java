@@ -1,5 +1,7 @@
 package com.gandalf.tvprogramv2;
 
+import android.widget.Toast;
+
 import org.json.JSONException;
 
 import java.io.IOException;
@@ -57,6 +59,18 @@ public class TvGuideLab {
 
     public ArrayList<TvProgram> getFavorites() {
         return mFavorites;
+    }
+
+    public TvProgram getFavoritesItem(int position) {
+        return mFavorites.get(position);
+    }
+
+    public void addFavoritesItem(TvProgram tvProgram) {
+        mFavorites.add(tvProgram);
+    }
+
+    public void removeFavoritesItem(int position) {
+        mFavorites.remove(position);
     }
 
     public static TvGuideLab instance() {

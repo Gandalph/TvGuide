@@ -12,6 +12,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageButton;
 
+import org.json.JSONException;
+
+import java.io.IOException;
+
 public class LauncherActivity extends AppCompatActivity {
 
     @Override
@@ -55,8 +59,6 @@ public class LauncherActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
-
-
     }
 
     private class PagerAdapter extends FragmentStatePagerAdapter {
